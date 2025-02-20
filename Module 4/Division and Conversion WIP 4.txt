@@ -1,0 +1,52 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter the first number: ");
+        string input1 = Console.ReadLine();
+
+        Console.Write("Enter the second number: ");
+        string input2 = Console.ReadLine();
+
+        PerformDivision(input1, input2);
+    }
+
+    static void PerformDivision(string num1, string num2)
+    {
+        try
+        {
+            // Attempt to parse input
+            if (!int.TryParse(num1, out int number1))
+            {
+                throw new FormatException("First input is not a valid integer.");
+            }
+
+            if (!int.TryParse(num2, out int number2))
+            {
+                throw new FormatException("Second input is not a valid integer.");
+            }
+
+            // Perform division
+            int result = number1 / number2;
+            Console.WriteLine($"The result is: {result}");
+        }
+        catch (FormatException ex)
+        {
+            Console.WriteLine($"[Format Error] {ex.Message}");
+        }
+        catch (DivideByZeroException)
+        {
+            Console.WriteLine("[Math Error] Division by zero is not allowed.");
+        }
+        catch (OverflowException)
+        {
+            Console.WriteLine("[Overflow Error] The number entered is too large or too small for an integer.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"[Unexpected Error] {ex.Message}");
+        }
+    }
+}
